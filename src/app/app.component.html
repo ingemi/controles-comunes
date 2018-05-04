@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to
+  </h1>
+</div>
+<h2>Formulario de pruebas </h2>
+<form [formGroup] = "form">
+  <nrj-input-text formControlName="test-text"></nrj-input-text>
+  
+</form>
+
+<p>Form Values: {{form.value | json}}</p>
+<p>Form Valid: {{form.valid | json}}</p>
+
