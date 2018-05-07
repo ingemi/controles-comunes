@@ -2,10 +2,10 @@
     <input
       type="text"
       [(ngModel)]="value"
-      [ngClass]="{'has-error': (invalid | async)}" />
-    <div *ngIf="invalid | async">
+      [ngClass]="{'has-error': invalid}" />
+    <div *ngIf="invalid">
         <ul>
-            <li *ngFor="let message of failures | async">{{message}}</li>
+            <li *ngFor="let message of failures">{{message}}</li>
         </ul>
     </div>
   </div>

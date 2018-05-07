@@ -5,11 +5,11 @@
   </h1>
 </div>
 <h2>Formulario de pruebas </h2>
-<form [formGroup] = "form">
-  <nrj-input-text formControlName="test-text"></nrj-input-text>
-  
+<form [formGroup]="form">
+  <nrj-input-text formControlName="nombre" [validators]="validators.nombre"></nrj-input-text>  
 </form>
 
 <p>Form Values: {{form.value | json}}</p>
 <p>Form Valid: {{form.valid | json}}</p>
+<p>Form Valid: {{form.controls['nombre'].valid | json}}</p>
 

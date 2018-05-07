@@ -7,18 +7,20 @@ import {
     message,
     validate,
 } from './utils';
+import { Input } from '@angular/core';
 
 
 export abstract class BaseComponent<T> implements ControlValueAccessor {
 
     protected abstract model: NgModel;
     private innerValue: T;
+    @Input() validators:Array<any>;
 
 
-    private changed = new Array<(value: T) => void>();
-    private touched = new Array<() => void>();
+    propagateChange = (_: any) => {};
+    propagateTouch = () => {};
 
-    constructor(private _validators: ValidatorArray, private _asyncValidators: AsyncValidatorArray) { }
+    constructor() { }
 
 
 
@@ -30,13 +32,13 @@ export abstract class BaseComponent<T> implements ControlValueAccessor {
     set value(value: T) {
         if (this.innerValue !== value) {
             this.innerValue = value;
-            this.changed.forEach(f => f(value));
+            this.propagateChange(this.innerValue);
         }
     }
 
 
     touch() {
-        this.touched.forEach(f => f());
+        this.propagateTouch()
     }
 
 
@@ -46,27 +48,31 @@ export abstract class BaseComponent<T> implements ControlValueAccessor {
 
 
     registerOnChange(fn: (value: T) => void) {
-        this.changed.push(fn);
+        this.propagateChange = fn;
     }
 
 
     registerOnTouched(fn: () => void) {
-        this.touched.push(fn);
+        this.propagateTouch = fn;
     }
 
-    protected validate(): Observable<any> {
+    public validate() {        
         return validate
-            (this._validators, this._asyncValidators)
+            (this.validators)
             (this.model.control);
     }
 
 
-    protected get invalid(): Observable<boolean> {
-        return this.validate().map(v => Object.keys(v || {}).length > 0);
+    protected get invalid() {
+        return this.validate();
     }
 
 
-    protected get failures(): Observable<Array<string>> {
-        return this.validate().map(v => Object.keys(v).map(k => message(v, k)));
+    protected get failures() {
+        let messages = [];
+        for(let validation in this.validate()){
+            messages.push(message(null,validation))
+        }
+        return messages;
     }
 }
