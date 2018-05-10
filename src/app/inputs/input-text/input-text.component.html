@@ -1,11 +1,9 @@
-<div class="container">
-    <input
-      type="text"
-      [(ngModel)]="value"
-      [ngClass]="{'has-error': invalid}" />
-    <div *ngIf="invalid">
-        <ul>
-            <li *ngFor="let message of failures">{{message}}</li>
-        </ul>
+  <div class="col s12">
+    <div class="input-field">
+      <input type="text" [(ngModel)]="value" class="validate" [ngClass]="config.className" [class.invalid]="invalid" [placeholder]="config.placeholder ? config.placeholder : '' ">
+      <label>{{config.label}}</label>
+      <ng-template [ngIf]="invalid" >
+          <span class="helper-text" style="color:#F44336" data-error="wrong" data-success="right" *ngFor="let message of failures" >{{message}}</span>
+      </ng-template>
     </div>
   </div>

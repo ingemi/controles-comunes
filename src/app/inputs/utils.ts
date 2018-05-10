@@ -40,21 +40,23 @@ export const validate = (validators: ValidatorArray) => {
 
     if (validators) {
       return synchronousValid();
-    }
+    } 
     return null;
   };
 };
 
-export const message = (validator: ValidationResult, key: string): string => {
+export const message = (validator: any, key: string): string => {
   switch (key) {
     case 'required':
-      return 'Please enter a value';
+      return validator? validator : 'Please enter a value';
     case 'pattern':
-      return 'Value does not match required pattern';
+      return validator? validator : "Value does not match required pattern";
     case 'minlength':
-      return 'Value must be 5 characters';
+      return validator? validator : 'Value must be 5 characters';
     case 'maxlength':
       return 'Value must be a maximum of N characters';
+    case 'customValidator':
+      return validator? validator : 'Message from customValidator';
   }
 
 
@@ -65,3 +67,38 @@ export const message = (validator: ValidationResult, key: string): string => {
       return `Validation failed: ${key}`;
   }
 };
+
+export class BaseValidator {
+  validator: Validators;
+  message: string;
+   constructor(validator, message) {
+      this.validator = validator;
+      this.message = message;
+   }
+}
+
+export class FormClassControl {
+  name: string;
+  validator: Array<BaseValidator>;
+  label: string;
+  placeholder: string;
+  className: string;
+   constructor(name, label, className , placeholder, validator) {
+     this.name = name;
+      this.validator = validator;
+      this.label = label;
+      this.placeholder = placeholder;
+      this.className = className;
+
+   }
+}
+
+
+export function ageRangeValidator(min: number, max: number): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: boolean } | null => {
+      if (control.value !== "" && control.value !== undefined && (isNaN(control.value) || control.value < min || control.value > max)) {
+          return { 'customValidator': true };
+      }
+      return null;
+  };
+}

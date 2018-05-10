@@ -1,15 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to
-  </h1>
+  <h4>Formulario de pruebas </h4>
 </div>
-<h2>Formulario de pruebas </h2>
+
 <form [formGroup]="form">
-  <nrj-input-text formControlName="nombre" [validators]="validators.nombre"></nrj-input-text>  
+  
+  <nrj-input-text formControlName="{{config[0].name}}" [config]="config[0]"></nrj-input-text>
+  
+  <!-- <nrj-input-text formControlName="nombre1" [validators]="validators.nombre1" [labelText]="'Validador required'"></nrj-input-text>
+  <nrj-input-text formControlName="nombre2" [validators]="validators.nombre2" [labelText]="'Validador required y maxLength 5'"></nrj-input-text>
+  <nrj-input-text formControlName="nombre3" [validators]="validators.nombre3" [labelText]="'Pattern'"></nrj-input-text>
+  <nrj-input-text formControlName="nombre4" [validators]="validators.nombre4" [labelText]="'Custom Validator'"></nrj-input-text> -->
+
+  <button type="submit" (click)="submit(form)" >Enviar</button>
 </form>
 
 <p>Form Values: {{form.value | json}}</p>
 <p>Form Valid: {{form.valid | json}}</p>
-<p>Form Valid: {{form.controls['nombre'].valid | json}}</p>
+<!-- <p>Form Valid: {{form.controls['nombre'].valid | json}}</p> -->
 

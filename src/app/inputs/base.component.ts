@@ -1,4 +1,4 @@
-import { ControlValueAccessor, NgModel } from '@angular/forms';
+import { ControlValueAccessor, NgModel, Validators, FormGroupDirective } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
     AsyncValidatorArray,
@@ -7,27 +7,41 @@ import {
     message,
     validate,
 } from './utils';
-import { Input } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 
 
-export abstract class BaseComponent<T> implements ControlValueAccessor {
+export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
 
     protected abstract model: NgModel;
     private innerValue: T;
+
+    @Input() config: any;
     @Input() validators:Array<any>;
+    @Input() labelText: string;
 
 
     propagateChange = (_: any) => {};
     propagateTouch = () => {};
 
-    constructor() { }
+    constructor(private parentFormGroup:FormGroupDirective) { }
+    
+    ngOnInit() {
+        this.initialize();
+        console.log(this.config);
+        debugger;
+    }
 
-
+    initialize(){
+        this.parentFormGroup.ngSubmit.subscribe(
+          res => {
+              this.markAsDirty()
+          }
+        )
+    }
 
     get value(): T {
         return this.innerValue;
     }
-
 
     set value(value: T) {
         if (this.innerValue !== value) {
@@ -36,43 +50,53 @@ export abstract class BaseComponent<T> implements ControlValueAccessor {
         }
     }
 
-
     touch() {
         this.propagateTouch()
     }
 
-
     writeValue(value: T) {
-        this.innerValue = value;
+        if(value) {
+            this.innerValue = value;
+        }
     }
-
 
     registerOnChange(fn: (value: T) => void) {
         this.propagateChange = fn;
     }
 
-
     registerOnTouched(fn: () => void) {
         this.propagateTouch = fn;
     }
 
-    public validate() {        
-        return validate
-            (this.validators)
-            (this.model.control);
+    public validate() { 
+        this.model.control.setValue(this.innerValue);
+            return validate(this.config.validators.map(res => {;
+                return res.validator;
+            }))(this.model.control);
     }
-
 
     protected get invalid() {
+     if(this.model.control.dirty) {
         return this.validate();
+     }
     }
 
-
     protected get failures() {
-        let messages = [];
+		let messages = [];
         for(let validation in this.validate()){
-            messages.push(message(null,validation))
+            let msjPushed = false;
+			this.config.validators.forEach(element => {
+                if(!msjPushed) {
+                    messages.push(message(element.message,validation))
+                    msjPushed = true;
+                }
+			});
         }
-        return messages;
+        return messages;   
+    }
+
+    markAsDirty(){
+        this.model.control.markAsDirty();
+        this.validate();
     }
 }
