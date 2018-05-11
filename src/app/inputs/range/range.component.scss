@@ -1,0 +1,40 @@
+@import '~sass/variables';
+
+.range-section {
+        
+    .range-slider {
+        width                       : 100%;
+        padding-right               : 0;
+        padding-left                : 0;
+
+        .mat-slider-wrapper {
+
+            .mat-slider-track-wrapper {
+                width               : calc(100% + 14px);
+                left                : -8px;
+            }
+
+            .mat-slider-track-fill {
+                background-color    : $main_orange_color;
+            }
+
+            .mat-slider-thumb {
+                background-color    : $main_orange_color;  
+                border: none;
+                outline: none;          
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
+    .range-slider.cdk-touch-focused .mat-slider-thumb {
+        transform                   : scale(0.85) !important;
+    }
+
+    .range-section-placeholder{
+        transform                   : translateY(-1.28125em) scale(.75) perspective(100px) translateZ(.001px);
+        display                     : block;
+        position                    : relative;
+        top                         : 1.7em;
+    }
+}

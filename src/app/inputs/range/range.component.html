@@ -1,0 +1,28 @@
+<section 
+    class="range-section" 
+    [ngClass]="extraClass"
+    [attr.name]="name"
+    [formGroup]="form" >
+
+    <label class="mat-form-field-label range-section-placeholder">{{placeholder}}</label>
+
+    <mat-slider #focusElement
+        formControlName="inputCtrl"
+        class="range-slider"
+        [ngClass]="innerClass"
+        [min]="min"
+        [max]="max"
+        [step]="step"
+        [value]="model" (input)="onSliderChange($event)">
+    </mat-slider>
+
+    <mat-error 
+        class="range-error"
+        *ngIf="form.controls.inputCtrl.errors"> 
+        {{errorMsgSetter()}}
+    </mat-error>
+
+    <div class="range-section-value-show" [hidden]="!showValue">
+        {{decorated_model}}
+    </div>
+</section>

@@ -66,7 +66,6 @@ export class AppComponent implements OnInit {
         label: element.label,
         placeholder: element.placeholder,
         className: element.className
-        //Aca irian las options de los distintos inputs
       })
     });
     return configs;

@@ -4,11 +4,25 @@ import { InputTextComponent } from './input-text/input-text.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DateComponent } from './date/date.component';
+import { DoubleSelectComponent } from './double-select/double-select.component';
+import { NumberComponent } from './number/number.component';
+import { RadioComponent } from './radio/radio.component';
+import { RangeComponent } from './range/range.component';
+import { SelectComponent } from './select/select.component';
+import { TimeComponent } from './time/time.component';
 
 
 @NgModule({
   declarations: [
-    InputTextComponent
+    InputTextComponent,
+    DateComponent,
+    DoubleSelectComponent,
+    NumberComponent,
+    RadioComponent,
+    RangeComponent,
+    SelectComponent,
+    TimeComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +32,14 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule
   ],
   exports:[
-    InputTextComponent
+    InputTextComponent,
+    DateComponent,
+    DoubleSelectComponent,
+    NumberComponent,
+    RadioComponent,
+    RangeComponent,
+    SelectComponent,
+    TimeComponent
   ],
   providers: []
 })

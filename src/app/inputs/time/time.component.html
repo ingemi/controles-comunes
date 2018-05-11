@@ -1,0 +1,13 @@
+<mat-form-field class="" [ngClass]="extraClass" [formGroup]="form">
+    <input formControlName="inputCtrl" #focusElement
+        type="time" 
+        matInput 
+        [max]="validations.max"
+        [min]="validations.min"
+        [placeholder]="placeholder" 
+        [ngModel]="model" (ngModelChange)="onChange($event)">
+
+        <mat-error *ngIf="form.controls.inputCtrl.errors"> 
+            {{errorMsgSetter()}}
+        </mat-error>
+</mat-form-field>

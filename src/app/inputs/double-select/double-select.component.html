@@ -1,0 +1,33 @@
+<section [formGroup]="form" *ngIf="items">
+
+  <mat-form-field class="" [ngClass]="extraClass" >
+    <mat-select formControlName="inputCtrlFirst"
+      #focusElement1
+      [placeholder]="placeholder[0]" 
+      [ngModel]="model[0]" (ngModelChange)="onSelectChange($event,0)">
+          
+      <mat-option *ngFor="let option of items[0]" [value]="option.value">
+          {{option.label}}
+      </mat-option>  
+    </mat-select>
+    <mat-error *ngIf="form.controls.inputCtrlFirst.errors"> 
+      {{errorMsgSetter('inputCtrlFirst')}}
+  </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="" [ngClass]="extraClass" id="name[1]">
+    <mat-select formControlName="inputCtrlSecond"
+      #focusElement2
+      [placeholder]="placeholder[1]"
+      [ngModel]="model[1]" (ngModelChange)="onSelectChange($event,1)" >
+
+      <mat-option *ngFor="let option of items[1]" [value]="option.value">
+          {{option.label}}
+      </mat-option>
+    </mat-select>
+
+    <mat-error *ngIf="form.controls.inputCtrlSecond.errors"> 
+      {{errorMsgSetter('inputCtrlSecond')}}
+    </mat-error>
+  </mat-form-field>
+</section>

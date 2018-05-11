@@ -26,11 +26,6 @@ import {
   ],
 })
 export class InputTextComponent extends BaseComponent<string>{
-
-    @ViewChild(NgModel) model: NgModel;
-
-
-
     constructor(@Optional() private _parentFormGroup: FormGroupDirective,private _formBuilder:FormBuilder){
       super(_parentFormGroup,_formBuilder);
     }

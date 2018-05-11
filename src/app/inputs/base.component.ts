@@ -11,8 +11,6 @@ import { Input, OnInit } from '@angular/core';
 
 
 export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
-
-    protected abstract model: NgModel;
     private innerValue: T;
     protected innerFormGroup:FormGroup
     protected innerFormControl:FormControl = new FormControl();
@@ -20,6 +18,7 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     @Input() config: any;
     @Input() validators:Array<any>;
     @Input() labelText: string;
+    @Input() focusElement;
 
 
     propagateChange = (_: any) => {};
@@ -78,10 +77,6 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
 
     public validate() { 
         return this.innerFormControl.errors;
-
-        /* return validate(this.config.validators.map(res => {;
-            return res.validator;
-        }))(this.innerFormControl); */
     }
 
     protected get invalid() {

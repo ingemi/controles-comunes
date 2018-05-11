@@ -1,0 +1,26 @@
+<mat-form-field 
+    class               = "tn-input-number-container"
+    [ngClass]           = "extraClass"
+    [formGroup]         = "form" >
+
+    <input #focusElement 
+        matInput
+        class           = "tn-input-number"
+        formControlName = "inputCtrl"
+        type            = "number"
+        [name]          = "name"
+        [placeholder]   = "placeholder"
+        [max]           = "validations.max"
+        [min]           = "validations.min"
+        [autocomplete]  = "behavior.autocomplete"
+        [spellcheck]    = "behavior.spellCheck"
+        [maxlength]     = "behavior.maxChars"
+        [(ngModel)]     = "model"
+        (ngModelChange) = "onChange($event)" >
+
+        <mat-error 
+            class       = "tn-input-number-error"
+            *ngIf       = "form.controls.inputCtrl.errors"> 
+            {{errorMsgSetter()}}
+        </mat-error>
+</mat-form-field>
