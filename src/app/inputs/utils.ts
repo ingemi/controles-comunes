@@ -46,6 +46,7 @@ export const validate = (validators: ValidatorArray) => {
 };
 
 export const message = (validator: any, key: string): string => {
+
   switch (key) {
     case 'required':
       return validator? validator : 'Please enter a value';
@@ -54,7 +55,7 @@ export const message = (validator: any, key: string): string => {
     case 'minlength':
       return validator? validator : 'Value must be 5 characters';
     case 'maxlength':
-      return 'Value must be a maximum of N characters';
+      return validator?  validator :  'Value must be a maximum of N characters';
     case 'customValidator':
       return validator? validator : 'Message from customValidator';
   }
@@ -77,21 +78,25 @@ export class BaseValidator {
    }
 }
 
-export class FormClassControl {
+export class FormBaseControl {
   name: any;
   validator: Array<BaseValidator>;
   label: string;
   placeholder: string;
   className: string;
-   constructor(control, label, className , placeholder, validator) {
-     this.name = control.controlName;
+  step? : number;
+   constructor(control, label, className , placeholder, validator, pStep?) {
+      this.name = control.controlName;
       this.validator = validator.validators;
       this.label = label.labelText;
       this.placeholder = placeholder.placeholder;
       this.className = className.extraClass;
-
+      this.step = pStep !== undefined ? pStep.step : null;
    }
 }
+
+
+
 
 
 export function ageRangeValidator(min: number, max: number): ValidatorFn {

@@ -1,6 +1,6 @@
 
   <mat-form-field>
-    <input #focusElement matInput [formControl]="innerFormControl" [(ngModel)]="value" [placeholder]="config.placeholder">
+    <input type="number" #focusElement matInput [formControl]="innerFormControl" [(ngModel)]="value" [step]="config.step">
     <mat-error *ngIf="innerFormControl.errors" > 
         <span class="helper-text" style="color:#F44336" data-error="wrong" data-success="right" *ngFor="let message of failures" >{{message}}
             <br>

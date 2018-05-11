@@ -8,9 +8,17 @@
   <nrj-input-text formControlName="{{config[0].name}}" [config]="config[0]"></nrj-input-text>
   <br>
   <nrj-input-text formControlName="{{config[1].name}}" [config]="config[1]"></nrj-input-text>
-    
+  <br>
+  <br>
+  <p>Input type text</p>
+  <nrj-input-number formControlName="{{config[2].name}}" [config]="config[2]"></nrj-input-number>
+    <br>
   <button type="submit" (click)="submit(form)" >Enviar</button>
 </form>
+<br>
+<br>
+<br>
+<br>
 
 <p>Form Values: {{form.value | json}}</p>
 <p>Form Valid: {{form.valid | json}}</p>

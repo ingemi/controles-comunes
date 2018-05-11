@@ -12,7 +12,6 @@ import { Input, OnInit } from '@angular/core';
 
 export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
 
-    protected abstract model: NgModel;
     private innerValue: T;
     protected innerFormControl:FormControl = new FormControl();
 
@@ -90,11 +89,9 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
         for(let validation in this.validate()){
             let msjPushed = false;
 			this.config.validators.forEach(element => {
-                if(!msjPushed) {
+                
                     messages.push(message(element.message,validation))
-                    msjPushed = true;
-                }
-			});
+                			});
         }
         return messages;   
     }

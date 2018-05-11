@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
-import { BaseValidator, ageRangeValidator, FormClassControl } from './inputs/utils';
+import { BaseValidator, ageRangeValidator, FormBaseControl } from './inputs/utils';
 import { mockDatos } from './mock/mock';
 
 @Component({
@@ -26,16 +26,17 @@ export class AppComponent implements OnInit {
    
   let formConfig = 
   [
-    new FormClassControl( 
+    new FormBaseControl( 
       { controlName: 'nasssssme' }, 
       { labelText: 'Campo de nombre5' }, 
       { extraClass: '' } ,
       { placeholder: 'Campo 1' }, 
       { validators: [ 
-                        new BaseValidator( { validator: Validators.required }, { message: 'Es requerido' }),     
+                        new BaseValidator( { validator: Validators.required }, { message: 'Es requerido' }, ),     
                     ]
-      }),
-      new FormClassControl( 
+      },
+      ),
+      new FormBaseControl( 
         { controlName: 'name2' }, 
         { labelText: 'Campo2' }, 
         { extraClass: '' } ,
@@ -44,9 +45,23 @@ export class AppComponent implements OnInit {
                         new BaseValidator( { validator: Validators.required }, { message: 'Es requerido' }),    
                         new BaseValidator( { validator: Validators.maxLength(5) },{ message: 'El maximo permitido son 5 caracteres' }),     
                       ]
-        }),
+        },
+      ),
+        new FormBaseControl( 
+          { controlName: 'name3' }, 
+          { labelText: 'Campo Input Type Number' }, 
+          { extraClass: '' } ,
+          { placeholder: 'Campo Input Type Number' }, 
+          { validators: [ 
+                          new BaseValidator( { validator: Validators.required }, { message: 'Es requerido' }),    
+                          new BaseValidator( { validator: Validators.min(2) }, { message: 'El valor minimo es 2' }),
+                          new BaseValidator( { validator: Validators.max(30) }, { message: 'El valor maximo es 30' })
+                        ]
+          },
+          { step: 10 }
+          ),
   ]
-  
+    
   this.form = this.createGroup(formConfig);
   this.config = this.createConfig(formConfig);
   }
@@ -67,7 +82,8 @@ export class AppComponent implements OnInit {
         validators: element.validator,
         label: element.label,
         placeholder: element.placeholder,
-        className: element.className
+        className: element.className,
+        step: element.step
       })
     });
     return configs;
