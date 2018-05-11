@@ -1,5 +1,4 @@
-
-  <mat-form-field>
+<mat-form-field [ngClass]="config.extraClass">
     <input #focusElement matInput [formControl]="innerFormControl" [(ngModel)]="value" [placeholder]="config.placeholder">
     <mat-error *ngIf="innerFormControl.errors" > 
         <span class="helper-text" style="color:#F44336" data-error="wrong" data-success="right" *ngFor="let message of failures" >{{message}}

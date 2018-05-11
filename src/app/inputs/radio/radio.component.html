@@ -1,18 +1,7 @@
-<section
-    class               = "tn-input-radio-container"
-    [ngClass]           = "extraClass" >
+<section class="tn-input-radio-container" [ngClass]="extraClass">
     <label class="tn-radio-group-placeholder" [innerText]="config.placeholder"></label>
-    <mat-radio-group #focusElement 
-        class           = "tn-radio-group" 
-        formControlName = "inputCtrl"
-        [name]          = "name"
-        [(ngModel)]     = "value"  >
-
-      <mat-radio-button 
-        class           = "tn-radio-item" 
-        *ngFor          = "let radio of items" 
-        [value]         = "radio.value" >
-
+    <mat-radio-group #focusElement [formControl]="innerFormControl" [(ngModel)]="value">
+      <mat-radio-button class= "tn-radio-item" *ngFor= "let radio of config.items" [value]= "radio.value" >
         {{radio.label}}
       </mat-radio-button>
     </mat-radio-group>

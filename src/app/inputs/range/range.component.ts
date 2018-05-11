@@ -1,11 +1,13 @@
 import { 
     Component, 
     OnInit, 
-    ViewEncapsulation }             from '@angular/core';
+    ViewEncapsulation, 
+    Optional}             from '@angular/core';
 import { 
     FormBuilder, 
-    Validators }                    from '@angular/forms';
-import { Base }                     from '../base';
+    Validators, 
+    FormGroupDirective}                    from '@angular/forms';
+import { BaseComponent } from '../base.component';
 
 @Component({
   selector                          : 'app-range',
@@ -14,7 +16,7 @@ import { Base }                     from '../base';
   encapsulation                     : ViewEncapsulation.None
 })
 
-export class RangeComponent extends Base implements OnInit {
+export class RangeComponent extends BaseComponent<any> implements OnInit {
 
     min                :number      = undefined;
     max                :number      = undefined;
@@ -26,41 +28,19 @@ export class RangeComponent extends Base implements OnInit {
     showValue          :boolean     = false;
     labels             :any         = undefined; 
 
-    constructor(fBuilder: FormBuilder) { 
-        super(fBuilder);
-    }
-
-    onSliderChange(event) {
+    constructor(@Optional() private _parentFormGroup: FormGroupDirective,private _formBuilder:FormBuilder){
+        super(_parentFormGroup,_formBuilder);
+      }
+    
+   /*  onSliderChange(event) {
         this.decorated_model        = this.showModelDecorator(event.value);
-        super.onChange(event.value);
-    };
+        //super.onChange(event.value);
+    }; */
 
-    showModelDecorator(value:string=""){
+   /*  showModelDecorator(value:string=""){
         value = (this.labels)?this.labels[Number(value)/Number(this.step)]:value;
         return this.showValuePrefix+value+this.showValueSufix;
-    }
-
-    ngOnInit() {
-        this.step                   = this.step     || 1;
-        this.showValuePrefix        = this.prefix   || "";
-        this.showValueSufix         = this.sufix    || "";
-        this.model                  = this.model    || "0"
-        this.labels                 = this.labels || undefined;
-        this.decorated_model        = this.showModelDecorator(this.model);
-
-        super.beforeInit();
-
-        this.min                    = this.validations.min || 0;
-        this.max                    = this.validations.max || 100;
-
-        let validatorsDictionary    = {
-            "required"              : Validators.required
-        };
-
-        // this.validations.required = true;
-
-        super.afterInit(validatorsDictionary);
-    }
+    } */
 
     focus(){
         if(!this.focusElement) this.focusElement['focus']();

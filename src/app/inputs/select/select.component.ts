@@ -1,28 +1,17 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Base } from '../base';
+import { Component, OnInit, ElementRef, Optional } from '@angular/core';
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
+import { BaseComponent } from '../base.component';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
-export class SelectComponent extends Base implements OnInit {
+export class SelectComponent extends BaseComponent<any> implements OnInit {
 
-  constructor(fBuilder: FormBuilder,elementRef:ElementRef) {
-    super(fBuilder);
+  constructor(@Optional() private _parentFormGroup: FormGroupDirective,private _formBuilder:FormBuilder){
+    super(_parentFormGroup,_formBuilder);
   }
-
-  ngOnInit() {
-    super.beforeInit();
-
-    let validatorsDictionary    = {
-        'required'              : Validators.required
-    };
-
-    super.afterInit(validatorsDictionary);
-  }
-
   focus(){
     if(!this.focusElement) this.focusElement['focus']();
   }

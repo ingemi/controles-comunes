@@ -1,12 +1,13 @@
 import {
   Component,
   OnInit,
-  ViewEncapsulation }           from '@angular/core';
+  ViewEncapsulation, 
+  Optional}           from '@angular/core';
 import { 
   FormBuilder, 
-  Validators }                  from '@angular/forms';
-import { 
-  Base }                        from '../base';
+  Validators, 
+  FormGroupDirective}                  from '@angular/forms';
+import { BaseComponent } from '../base.component';
 
 @Component({
   selector                      : 'app-date',
@@ -15,24 +16,9 @@ import {
   encapsulation                 : ViewEncapsulation.None
 })
 
-export class DateComponent extends Base implements OnInit {
+export class DateComponent extends BaseComponent<any> implements OnInit {
 
-  constructor(fBuilder: FormBuilder){
-    super(fBuilder);
-  }
-
-  ngOnInit() {
-    super.beforeInit();
-    
-    // this.validations.max = "2018-01-01";
-    // this.validations.min = "2018-01-01";
-    // delete this.validations.required;
-    // delete this.disabled;
-
-    let validatorsDictionary    = {
-      "required"                : Validators.required
-    };
-
-    super.afterInit(validatorsDictionary);
+  constructor(@Optional() private _parentFormGroup: FormGroupDirective,private _formBuilder:FormBuilder){
+    super(_parentFormGroup,_formBuilder);
   }
 }

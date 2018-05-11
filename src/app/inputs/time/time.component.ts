@@ -1,30 +1,19 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Base } from '../base';
+import { Component, OnInit, ElementRef, Optional } from '@angular/core';
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
+import { BaseComponent } from '../base.component';
 
 @Component({
   selector: 'app-time',
   templateUrl: './time.component.html',
   styleUrls: ['./time.component.scss']
 })
-export class TimeComponent extends Base implements OnInit {
+export class TimeComponent extends BaseComponent<number> implements OnInit {
 
-  constructor(fBuilder: FormBuilder,private elementRef:ElementRef) { 
-    super(fBuilder);
+  constructor(@Optional() private _parentFormGroup: FormGroupDirective,private _formBuilder:FormBuilder){
+    super(_parentFormGroup,_formBuilder);
   }
 
-  ngOnInit() {
-    super.beforeInit();
-    
-    // this.validations.max = "";
-    // this.validations.min = "";
-    // delete this.validations.required;
-    // delete this.disabled;
-
-    let validatorsDictionary    = {
-        "required"              : Validators.required
-    };
-
-    super.afterInit(validatorsDictionary);
+  focus(){
+    if(!this.focusElement) this.focusElement['focus']();
   }
 }

@@ -82,12 +82,8 @@ export class AppComponent implements OnInit {
         validators: element.validator,
         label: element.label,
         placeholder: element.placeholder,
-<<<<<<< HEAD
-        className: element.className
-=======
         className: element.className,
         step: element.step
->>>>>>> 00642be31a267a6d410660ee9b7d94fa1348f144
       })
     });
     return configs;
