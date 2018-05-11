@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
-import { BaseValidator, ageRangeValidator, FormClassControl } from './inputs/utils';
+import { BaseValidator, ageRangeValidator, FormBaseControl } from './inputs/utils';
 import { mockDatos } from './mock/mock';
 
 @Component({
@@ -26,27 +26,44 @@ export class AppComponent implements OnInit {
    
   let formConfig = 
   [
-    new FormClassControl('nombre5', "Campo de nombre5", "" , "Nombre 5", [new BaseValidator(Validators.required, "Es requerido")]),
-    new FormClassControl('nombre6', "Campo de nombre6", " " ,"Nombre 6", [new BaseValidator(Validators.minLength(5), ""), new BaseValidator(Validators.required, "")])
+    new FormBaseControl( 
+      { controlName: 'nasssssme' }, 
+      { labelText: 'Campo de nombre5' }, 
+      { extraClass: '' } ,
+      { placeholder: 'Campo 1' }, 
+      { validators: [ 
+                        new BaseValidator( { validator: Validators.required }, { message: 'Es requerido' }, ),     
+                    ]
+      },
+      ),
+      new FormBaseControl( 
+        { controlName: 'name2' }, 
+        { labelText: 'Campo2' }, 
+        { extraClass: '' } ,
+        { placeholder: 'Campo 2' }, 
+        { validators: [ 
+                        new BaseValidator( { validator: Validators.required }, { message: 'Es requerido' }),    
+                        new BaseValidator( { validator: Validators.maxLength(5) },{ message: 'El maximo permitido son 5 caracteres' }),     
+                      ]
+        },
+      ),
+        new FormBaseControl( 
+          { controlName: 'name3' }, 
+          { labelText: 'Campo Input Type Number' }, 
+          { extraClass: '' } ,
+          { placeholder: 'Campo Input Type Number' }, 
+          { validators: [ 
+                          new BaseValidator( { validator: Validators.required }, { message: 'Es requerido' }),    
+                          new BaseValidator( { validator: Validators.min(2) }, { message: 'El valor minimo es 2' }),
+                          new BaseValidator( { validator: Validators.max(30) }, { message: 'El valor maximo es 30' })
+                        ]
+          },
+          { step: 10 }
+          ),
   ]
-  
+    
   this.form = this.createGroup(formConfig);
   this.config = this.createConfig(formConfig);
-
-    // this.form = this.formBuilder.group(
-    //   { 'nombre1': new FormControl(""),
-    //     'nombre2': new FormControl(""),
-    //     'nombre3': new FormControl(""),
-    //     'nombre4': new FormControl("")
-    //   }, 
-    // );
-    // this.validators = {
-    //   'nombre1': [ new BaseValidator(Validators.required, "Es requerido")],
-    //   'nombre2': [ new BaseValidator(Validators.minLength(5), ""), 
-    //                new BaseValidator(Validators.required, "")],
-    //   'nombre3': [ new BaseValidator(Validators.pattern("[A-Z33a-z]{3}"), "El valor no coincide con el patrón requerido")],
-    //   'nombre4': [ new BaseValidator(ageRangeValidator(5,10), "")],
-    // }
   }
 
   createGroup(array) {
@@ -65,7 +82,12 @@ export class AppComponent implements OnInit {
         validators: element.validator,
         label: element.label,
         placeholder: element.placeholder,
+<<<<<<< HEAD
         className: element.className
+=======
+        className: element.className,
+        step: element.step
+>>>>>>> 00642be31a267a6d410660ee9b7d94fa1348f144
       })
     });
     return configs;
@@ -75,9 +97,11 @@ export class AppComponent implements OnInit {
     if(form.valid) 
       console.log("valido");
     else {
-      this.submit(this.form);
+      
     }
   }
+
+      
   
 }
 

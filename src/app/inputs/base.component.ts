@@ -12,7 +12,6 @@ import { Input, OnInit } from '@angular/core';
 
 export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     private innerValue: T;
-    protected innerFormGroup:FormGroup
     protected innerFormControl:FormControl = new FormControl();
 
     @Input() config: any;
@@ -25,7 +24,7 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     propagateTouch = () => {};
 
     constructor(private parentFormGroup:FormGroupDirective,formBuilder:FormBuilder) {
-        this.innerFormGroup = formBuilder.group({'innerControl':this.innerFormControl})
+        
     }
     
     ngOnInit() {
@@ -33,7 +32,7 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     }
 
     initialize(){
-
+        this.validate();
         this.parentFormGroup.ngSubmit.subscribe(
           res => {
               this.markAsDirty()
@@ -42,8 +41,7 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
 
         this.innerFormControl.setValidators(this.config.validators.map(res => {;
             return res.validator;
-        }))
-        
+        }));        
     }
 
     get value(): T {
@@ -63,7 +61,7 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
 
     writeValue(value: T) {
         if(value) {
-            this.innerValue = value;
+            this.innerFormControl.setValue(value);
         }
     }
 
@@ -76,6 +74,7 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     }
 
     public validate() { 
+        this.innerFormControl.setValue(this.innerValue);
         return this.innerFormControl.errors;
     }
 
@@ -90,11 +89,9 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
         for(let validation in this.validate()){
             let msjPushed = false;
 			this.config.validators.forEach(element => {
-                if(!msjPushed) {
+                
                     messages.push(message(element.message,validation))
-                    msjPushed = true;
-                }
-			});
+                			});
         }
         return messages;   
     }

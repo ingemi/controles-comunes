@@ -11,6 +11,7 @@ import { RadioComponent } from './radio/radio.component';
 import { RangeComponent } from './range/range.component';
 import { SelectComponent } from './select/select.component';
 import { TimeComponent } from './time/time.component';
+import { InputNumberComponent } from './input-number/input-number.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TimeComponent } from './time/time.component';
     RadioComponent,
     RangeComponent,
     SelectComponent,
-    TimeComponent
+    TimeComponent,
+    InputNumberComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { TimeComponent } from './time/time.component';
   ],
   exports:[
     InputTextComponent,
+<<<<<<< HEAD
     DateComponent,
     DoubleSelectComponent,
     NumberComponent,
@@ -40,6 +43,9 @@ import { TimeComponent } from './time/time.component';
     RangeComponent,
     SelectComponent,
     TimeComponent
+=======
+    InputNumberComponent
+>>>>>>> 00642be31a267a6d410660ee9b7d94fa1348f144
   ],
   providers: []
 })

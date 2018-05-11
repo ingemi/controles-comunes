@@ -1,4 +1,4 @@
-import { BaseValidator, ageRangeValidator, FormClassControl } from '../inputs/utils';
+import { BaseValidator, ageRangeValidator, FormBaseControl } from '../inputs/utils';
 import { FormBuilder, FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 export const mockDatos = [{
     controlName: 'controlNumero1',
