@@ -26,8 +26,8 @@ export class AppComponent implements OnInit {
    
   let formConfig = 
   [
-    new FormClassControl('nombre5', "Campo de nombre5", "" , "asdasdads", [new BaseValidator(Validators.required, "Es requerido")]),
-    new FormClassControl('nombre6', "Campo de nombre6", " " ,"", [new BaseValidator(Validators.minLength(5), ""), new BaseValidator(Validators.required, "")])
+    new FormClassControl('nombre5', "Campo de nombre5", "" , "Nombre 5", [new BaseValidator(Validators.required, "Es requerido")]),
+    new FormClassControl('nombre6', "Campo de nombre6", " " ,"Nombre 6", [new BaseValidator(Validators.minLength(5), ""), new BaseValidator(Validators.required, "")])
   ]
   
   this.form = this.createGroup(formConfig);

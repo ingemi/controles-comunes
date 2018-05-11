@@ -1,5 +1,5 @@
 import {Component, Input, Optional, Inject, ViewChild, forwardRef} from '@angular/core';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, NgModel, NgForm, FormGroupDirective} from '@angular/forms';
+import { NG_VALUE_ACCESSOR, NG_VALIDATORS, NgModel, NgForm, FormGroupDirective, FormBuilder} from '@angular/forms';
 import { BaseComponent } from '../base.component';
 import {
     AsyncValidatorArray,
@@ -31,8 +31,8 @@ export class InputTextComponent extends BaseComponent<string>{
 
 
 
-    constructor(@Optional() private _parentFormGroup: FormGroupDirective){
-      super(_parentFormGroup);
+    constructor(@Optional() private _parentFormGroup: FormGroupDirective,private _formBuilder:FormBuilder){
+      super(_parentFormGroup,_formBuilder);
     }
     
     

@@ -1,4 +1,4 @@
-import { ControlValueAccessor, NgModel, Validators, FormGroupDirective } from '@angular/forms';
+import { ControlValueAccessor, NgModel, Validators, FormGroupDirective, FormGroup, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
     AsyncValidatorArray,
@@ -14,6 +14,8 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
 
     protected abstract model: NgModel;
     private innerValue: T;
+    protected innerFormGroup:FormGroup
+    protected innerFormControl:FormControl = new FormControl();
 
     @Input() config: any;
     @Input() validators:Array<any>;
@@ -23,20 +25,26 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     propagateChange = (_: any) => {};
     propagateTouch = () => {};
 
-    constructor(private parentFormGroup:FormGroupDirective) { }
+    constructor(private parentFormGroup:FormGroupDirective,formBuilder:FormBuilder) {
+        this.innerFormGroup = formBuilder.group({'innerControl':this.innerFormControl})
+    }
     
     ngOnInit() {
         this.initialize();
-        console.log(this.config);
-        debugger;
     }
 
     initialize(){
+
         this.parentFormGroup.ngSubmit.subscribe(
           res => {
               this.markAsDirty()
           }
         )
+
+        this.innerFormControl.setValidators(this.config.validators.map(res => {;
+            return res.validator;
+        }))
+        
     }
 
     get value(): T {
@@ -69,14 +77,15 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     }
 
     public validate() { 
-        this.model.control.setValue(this.innerValue);
-            return validate(this.config.validators.map(res => {;
-                return res.validator;
-            }))(this.model.control);
+        return this.innerFormControl.errors;
+
+        /* return validate(this.config.validators.map(res => {;
+            return res.validator;
+        }))(this.innerFormControl); */
     }
 
     protected get invalid() {
-     if(this.model.control.dirty) {
+     if(this.innerFormControl.dirty) {
         return this.validate();
      }
     }
@@ -96,7 +105,7 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
     }
 
     markAsDirty(){
-        this.model.control.markAsDirty();
+        this.innerFormControl.markAsDirty();
         this.validate();
     }
 }
