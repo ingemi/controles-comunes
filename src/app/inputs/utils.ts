@@ -71,24 +71,24 @@ export const message = (validator: any, key: string): string => {
 export class BaseValidator {
   validator: Validators;
   message: string;
-   constructor(validator, message) {
-      this.validator = validator;
-      this.message = message;
+   constructor(validators, message) {
+      this.validator = validators.validator;
+      this.message = message.message;
    }
 }
 
 export class FormClassControl {
-  name: string;
+  name: any;
   validator: Array<BaseValidator>;
   label: string;
   placeholder: string;
   className: string;
-   constructor(name, label, className , placeholder, validator) {
-     this.name = name;
-      this.validator = validator;
-      this.label = label;
-      this.placeholder = placeholder;
-      this.className = className;
+   constructor(control, label, className , placeholder, validator) {
+     this.name = control.controlName;
+      this.validator = validator.validators;
+      this.label = label.labelText;
+      this.placeholder = placeholder.placeholder;
+      this.className = className.extraClass;
 
    }
 }

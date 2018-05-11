@@ -8,11 +8,9 @@
     </div>
   </div> -->
 
-  <mat-form-field [formGroup] = "innerFormGroup" >
+  <mat-form-field>
 
-    <input #focusElement matInput
-        formControlName = "innerControl"
-        [(ngModel)]="value" [placeholder]   = "config.placeholder"   >
+    <input #focusElement matInput [formControl]="innerFormControl" [(ngModel)]="value" [placeholder]="config.placeholder">
 
     <mat-error *ngIf="innerFormControl.errors" > 
         <span class="helper-text" style="color:#F44336" data-error="wrong" data-success="right" *ngFor="let message of failures" >{{message}}</span>
