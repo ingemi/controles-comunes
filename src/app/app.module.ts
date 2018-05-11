@@ -18,8 +18,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     BrowserModule,
     InputsModule,
     FormsModule,
-    ReactiveFormsModule,
-    MaterializeModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
