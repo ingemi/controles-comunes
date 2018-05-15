@@ -8,6 +8,6 @@ export const mockDatos = [{
 		class: 'form-group'
 	},
 	validators: [
-        new BaseValidator(Validators.required, "Es requerido"),
+        // new BaseValidator(Validators.required, "Es requerido"),
     ]
 }]

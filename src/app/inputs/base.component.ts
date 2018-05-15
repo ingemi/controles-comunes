@@ -83,15 +83,14 @@ export abstract class BaseComponent<T> implements ControlValueAccessor, OnInit {
         return this.validate();
      }
     }
-
     protected get failures() {
 		let messages = [];
-        for(let validation in this.validate()){
-            let msjPushed = false;
-			this.config.validators.forEach(element => {
-                
+        for(let validation in this.validate()){			
+            this.config.validators.forEach(element => {
+                if(element.key === validation) {
                     messages.push(message(element.message,validation))
-                			});
+                }
+			});
         }
         return messages;   
     }

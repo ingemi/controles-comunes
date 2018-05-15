@@ -16,12 +16,12 @@ import { InputNumberComponent } from './input-number/input-number.component';
 @NgModule({
   declarations: [
     InputTextComponent,
-    DateComponent,
-    NumberComponent,
-    RadioComponent,
-    RangeComponent,
-    SelectComponent,
-    TimeComponent,
+    // DateComponent,
+    // NumberComponent,
+    // RadioComponent,
+    // RangeComponent,
+    // SelectComponent,
+    // TimeComponent,
     InputNumberComponent
   ],
   imports: [
@@ -33,12 +33,12 @@ import { InputNumberComponent } from './input-number/input-number.component';
   ],
   exports:[
     InputTextComponent,
-    DateComponent,
-    NumberComponent,
-    RadioComponent,
-    RangeComponent,
-    SelectComponent,
-    TimeComponent,
+    // DateComponent,
+    // NumberComponent,
+    // RadioComponent,
+    // RangeComponent,
+    // SelectComponent,
+    // TimeComponent,
     InputNumberComponent
   ],
   providers: []

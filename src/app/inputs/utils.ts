@@ -5,6 +5,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Input } from '@angular/core';
 
 
 export type ValidationResult = { [validator: string]: string | boolean };
@@ -45,36 +46,34 @@ export const validate = (validators: ValidatorArray) => {
   };
 };
 
-export const message = (validator: any, key: string): string => {
-
+export const message = (message: any, key: string): string => {
+  
   switch (key) {
     case 'required':
-      return validator? validator : 'Please enter a value';
+      return message? message : 'Por favor, ingrese un valor';
     case 'pattern':
-      return validator? validator : "Value does not match required pattern";
+      return message? message : "Value does not match required pattern";
     case 'minlength':
-      return validator? validator : 'Value must be 5 characters';
+      return message? message : 'Value must be 5 characters';
     case 'maxlength':
-      return validator?  validator :  'Value must be a maximum of N characters';
+      return message?  message :  'Value must be a maximum of N characters';
+    case 'min':
+      return message?  message :  'maximo';
+    case 'max':
+      return message?  message :  'minimo';
     case 'customValidator':
-      return validator? validator : 'Message from customValidator';
-  }
-
-
-  switch (typeof validator[key]) {
-    case 'string':
-      return <string>validator[key];
-    default:
-      return `Validation failed: ${key}`;
+      return message? message : 'Message from customValidator';
   }
 };
 
 export class BaseValidator {
   validator: Validators;
   message: string;
-   constructor(validators, message) {
+  key: string;
+   constructor(validators, message, key) {
       this.validator = validators.validator;
       this.message = message.message;
+      this.key = key.key;
    }
 }
 
@@ -107,3 +106,42 @@ export function ageRangeValidator(min: number, max: number): ValidatorFn {
       return null;
   };
 }
+
+
+
+export class InputBaseControl {
+  name: any;
+  validator: Array<BaseValidator> = [];
+  label: string;
+  placeholder: string;
+  className: string;
+   pSetName(name: string) {
+    this.name = name;
+   }
+   pSetValidador(validador: BaseValidator) {
+     this.validator.push(validador);
+   }
+   pSetLabel(label: string) {
+    this.label = label;
+   }
+   pSetPlaceholder(placeholder: string) {
+     this.placeholder = placeholder;
+   }
+   pSetClassName(className: string) {
+     this.className = className; 
+   }
+}
+
+export class InputNumber extends InputBaseControl {
+  step: number;
+  constructor() {
+    super();
+  }
+  pSetStep(step: number) {
+    this.step = step;
+  }
+}
+
+
+
+
